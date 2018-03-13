@@ -1,9 +1,10 @@
 import requests, json, re
+from requests import get
 def main():
     n = 1
     check = True
     while check == True:
-        scrape(n)
+        check = scrape(n)
         n = n+1
 def scrape(n):
     if n > 403:
@@ -22,6 +23,8 @@ def scrape(n):
         file.write(r.json()["alt"])
         file.write("\n")
         file.write("\n")
+        filename = "images/%d.png" %n
+        #download(r.json()["img"],filename)
         print(n)
         return True
     else:
@@ -29,6 +32,11 @@ def scrape(n):
         print(n)
         print(r.status_code)
         return False
+
+def download(url,filename):
+    with open(filename, "wb") as file:
+        response = get(url)
+        file.write(response.content)
 
 if __name__ == "__main__":
     main()
