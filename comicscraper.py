@@ -15,11 +15,10 @@ def scrape(n):
         content = r.json()["transcript"]
         content = re.sub(r"\[\[\s*(.*?)\s*\]\]","",content)
         content = re.sub(r"\{\{\s*(.*?)\s*\}\}","",content)
-        content = re.sub(r"(\r\n|\r|\n)"," ",content)
+        content = re.sub(r"\"","'",content)
         file.write(r.json()["title"])
         file.write("\n")
         file.write(content)
-        file.write("\n")
         file.write(r.json()["alt"])
         file.write("\n")
         file.write("\n")
